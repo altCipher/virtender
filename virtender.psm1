@@ -41,14 +41,16 @@
 		Backup-Utility	
 #>
 
-Function Backup-FilesFolders
+Function Start-Virtender
 {
 	[CmdletBinding()]
 	Param
 	(
 		#Mode options
 		[parameter()]
-    	[switch]$Debuger,
+		[switch]$Debuger,
+		[parameter(Mandatory)]
+		[String]$ComputerName,
 		[parameter()]
 		[String[]]$Sources,
 		[parameter(Mandatory)]
@@ -76,22 +78,8 @@ Function Backup-FilesFolders
 			Write-Warning "To perform some operations you must run an elevated Windows PowerShell console."	
 		} #End If !$Role
 
-		Write-Debug "Setting script variables."
-		[string]$Filename = "backup_$(Get-Date -f yyyy-MM-dd)"
-
-		Write-Debug "Checking for valid desination."
-		$DestinationCheck = $(Test-Path -Path $Destination)
-
-		If(!$DestinationCheck)
-		{
-			Write-Warning "Destination does not exist, creating directory."
-			New-Item -ItemType "directory" -Path "$Destination"
-		} #End If !$DesinationCheck
-
-		If($PSBoundParameters.ContainsKey['SourceFile'])
-		{
-			[string[]]$Sources = $(Get-Content -Path "$SourceFile")
-		}
+		$WifiStatus = Get-NetAdapter -Name "Wi-Fi" | Select-Object status
+		If($WifiStatus )
   }
 
   Process
