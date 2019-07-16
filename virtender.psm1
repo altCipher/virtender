@@ -71,12 +71,18 @@ Function Start-Virtender
 		} #End If !$Role
 
 		$WifiStatus = Get-NetAdapter -Name "Wi-Fi" | Select-Object status
-		If($WifiStatus )
+		Write-Host "$WifiStatus"
+
   }
 
   Process
   {
-		
+		While($true)
+		{
+			$i++
+			Write-Host "We have counted to $i"
+			Start-Sleep -Seconds 30
+		}
   }
 
   End{}
