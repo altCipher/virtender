@@ -52,14 +52,6 @@ Function Start-Virtender
 		[parameter(Mandatory)]
 		[String]$ComputerName,
 		[parameter()]
-		[String[]]$Sources,
-		[parameter(Mandatory)]
-		[String]$Destination,
-		[parameter()]
-		[Alias('Zip')]
-			[Switch]$Compress,
-		[parameter()]
-		[String]$SourceFile
 	)
 
 	Begin
@@ -84,23 +76,7 @@ Function Start-Virtender
 
   Process
   {
-		Write-Verbose "Creating backup directory."
-		New-Item -ItemType "directory" -Path "$Destination\$Filename"
-
-		Write-Verbose "Copying files to backup directory."
-		ForEach ($Source in $Sources)
-		{
-			Copy-Item -Path "$Source" -Destination "$Destination\$Filename" -Recurse
-		}
 		
-		If ($Compress) 
-		{
-			$ZipFilename = "$Destination\$Filename.zip"
-			Write-Verbose "Adding files to Zip archive."
-			Compress-Archive -Path "$Destination\$Filename" -DestinationPath "$ZipFilename"
-			Write-Verbose "Cleaning up extra files."
-			Remove-Item -Path "$Destination\$Filename" -Recurse
-		}
   }
 
   End{}
