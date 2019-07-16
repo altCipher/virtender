@@ -49,9 +49,8 @@ Function Start-Virtender
 		#Mode options
 		[parameter()]
 		[switch]$Debuger,
-		[parameter(Mandatory)]
-		[String]$ComputerName,
 		[parameter()]
+		[String]$ComputerName
 	)
 
 	Begin
@@ -69,9 +68,7 @@ Function Start-Virtender
 		{
 			Write-Warning "To perform some operations you must run an elevated Windows PowerShell console."	
 		} #End If !$Role
-
-		$WifiStatus = Get-NetAdapter -Name "Wi-Fi" | Select-Object status
-		Write-Host "$WifiStatus"
+		[System.Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
 
   }
 
@@ -80,10 +77,26 @@ Function Start-Virtender
 		While($true)
 		{
 			$i++
-			Write-Host "We have counted to $i"
-			Start-Sleep -Seconds 30
+			Write-Host "Loop number: $i"
+			Get-WifiStatus
+			Start-Sleep -Seconds 15
 		}
   }
 
   End{}
+}
+Function Get-WifiStatus 
+{
+	$WifiStatus = Get-NetAdapter -Name "Wi-Fi" | Select-Object -ExpandProperty "Status"
+	If($WifiStatus -ne "Up") 
+	{
+		Write-Host "$WifiStatus"
+		Write-Host "Wi-Fi disconnected!"
+		$wifireset = [System.Windows.Forms.MessageBox]::Show("Your Wi-Fi connection has been lost, restarting connection.","Wi-Fi Status",1,48)
+
+		If($WifiReset -eq "OK")
+		{
+			Restart-NetAdapter -Name "Wi-Fi"
+		}
+	}
 }
