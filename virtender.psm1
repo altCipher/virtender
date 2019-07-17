@@ -92,7 +92,7 @@ Function Get-WifiStatus
 	{
 		Write-Host "$WifiStatus"
 		Write-Host "Wi-Fi disconnected!"
-		$wifireset = [System.Windows.Forms.MessageBox]::Show("Your Wi-Fi connection has been lost, restarting connection.","Wi-Fi Status",1,48)
+		$wifireset = [System.Windows.Forms.MessageBox]::Show("Your Wi-Fi connection has been lost, restarting connection.","Wi-Fi Status",0,48)
 
 		If($WifiReset -eq "OK")
 		{
