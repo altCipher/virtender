@@ -91,7 +91,7 @@ Function Get-WifiStatus
 	If($WifiStatus -ne "Up") 
 	{
 		Write-Verbose "Wi-Fi connection has been lost, restarting connection."
-		$wifireset = [System.Windows.Forms.MessageBox]::Show("Wi-Fi connection has been lost, restarting connection.","Error: Wi-Fi Connection",0,48)
+		$WifiReset = [System.Windows.Forms.MessageBox]::Show("Wi-Fi connection has been lost, restarting connection.","Error: Wi-Fi Connection",0,48)
 
 		If($WifiReset -eq "OK")
 		{
