@@ -90,9 +90,8 @@ Function Get-WifiStatus
 	$WifiStatus = Get-NetAdapter -Name "Wi-Fi" | Select-Object -ExpandProperty "Status"
 	If($WifiStatus -ne "Up") 
 	{
-		Write-Host "$WifiStatus"
-		Write-Host "Wi-Fi disconnected!"
-		$wifireset = [System.Windows.Forms.MessageBox]::Show("Your Wi-Fi connection has been lost, restarting connection.","Wi-Fi Status",0,48)
+		Write-Verbose "Wi-Fi connection has been lost, restarting connection."
+		$wifireset = [System.Windows.Forms.MessageBox]::Show("Wi-Fi connection has been lost, restarting connection.","Error: Wi-Fi Connection",0,48)
 
 		If($WifiReset -eq "OK")
 		{
