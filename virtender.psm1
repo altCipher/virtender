@@ -96,7 +96,9 @@ Function Get-WifiStatus
 
 		If($WifiReset -eq "OK")
 		{
-			Restart-NetAdapter -Name "Wi-Fi"
+			Disable-NetAdapter -Name "Wi-Fi"
+			Start-Sleep -Seconds 3
+			Enable-NetAdapter -Name "Wi-Fi"
 		}
 	}
 }
